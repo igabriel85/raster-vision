@@ -30,7 +30,10 @@ class TaggingModelFactory(ModelFactory):
                 activation='sigmoid')
         elif model_type == DENSENET_121:
             weights = 'imagenet' if options.use_pretraining else None
-            model = DenseNet121(weights=weights,
+            model = DenseNet121(reduction=options.reduction,
+                                dropout_rate=options.dropout_rate,
+                                weight_decay=options.weight_decay,
+                                weights=weights,
                                 input_shape=input_shape,
                                 classes=len(generator.tag_store.active_tags),
                                 activation='sigmoid')
