@@ -57,15 +57,7 @@ class TaggingRunner(Runner):
                 compute_probs(self.run_path, self.model, self.options,
                               self.generator, TRAIN)
         elif task == VALIDATION_PROBS:
-            if aggregate_type == AGG_ENSEMBLE:
-                compute_ensemble_probs(
-                    self.run_path, self.options, self.generator, VALIDATION)
-            elif aggregate_type == AGG_CONCAT:
-                compute_concat_probs(
-                    self.run_path, self.options, self.generator, VALIDATION)
-            elif aggregate_type is None:
-                compute_probs(self.run_path, self.model, self.options,
-                              self.generator, VALIDATION)
+            print("Flying blind: Skipping task validation_predict")
         elif task == TEST_PROBS:
             if aggregate_type == AGG_ENSEMBLE:
                 compute_ensemble_probs(
@@ -85,17 +77,10 @@ class TaggingRunner(Runner):
                 compute_preds(
                     self.run_path, self.options, self.generator, TRAIN)
         elif task == VALIDATION_PREDICT:
-            if aggregate_type in [None, AGG_ENSEMBLE, AGG_CONCAT]:
-                compute_preds(self.run_path, self.options,
-                              self.generator, VALIDATION)
+            print("Flying blind: Skipping task validation_predict")
         elif task == TEST_PREDICT:
             if aggregate_type in [None, AGG_ENSEMBLE, AGG_CONCAT]:
                 compute_preds(
                     self.run_path, self.options, self.generator, TEST)
         elif task == VALIDATION_EVAL:
-            if aggregate_type == AGG_SUMMARY:
-                best_score_key = 'f2'
-                aggregate_scores(self.options, best_score_key)
-            else:
-                validation_eval(
-                    self.run_path, self.options, self.generator)
+            print("Flying blind: Skipping task validation_eval")

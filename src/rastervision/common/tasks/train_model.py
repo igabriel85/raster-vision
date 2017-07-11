@@ -118,11 +118,14 @@ class TrainModel():
             batch_size=self.options.batch_size,
             shuffle=True, augment_methods=self.options.augment_methods,
             normalize=True, only_xy=True)
+        print("Flying blind: Skipping validation steps during training")
+        """
         validation_gen = self.generator.make_split_generator(
             VALIDATION, target_size=self.options.target_size,
             batch_size=self.options.batch_size,
             shuffle=True, augment_methods=self.options.augment_methods,
             normalize=True, only_xy=True)
+        """
 
         if self.options.optimizer == ADAM:
             optimizer = Adam(lr=self.options.init_lr)
@@ -141,6 +144,6 @@ class TrainModel():
             initial_epoch=initial_epoch,
             steps_per_epoch=self.options.steps_per_epoch,
             epochs=self.options.epochs,
-            validation_data=validation_gen,
-            validation_steps=self.options.validation_steps,
+            # validation_data=validation_gen,
+            # validation_steps=self.options.validation_steps,
             callbacks=callbacks)
