@@ -1,0 +1,49 @@
+    {
+    "active_input_inds": [
+        0,
+        1,
+        2
+    ],
+    "aggregate_run_names": [
+        "tagging/7_7_17/jpg_ensemble_0/0",
+        "tagging/7_7_17/jpg_ensemble_0/1",
+        "tagging/7_7_17/jpg_ensemble_0/2",
+        "tagging/7_7_17/jpg_ensemble_0/3",
+        "tagging/7_7_17/jpg_ensemble_0/4"
+    ],
+    "aggregate_type": "agg_ensemble",
+    "augment_methods": [
+        "hflip",
+        "vflip",
+        "rotate90"
+    ],
+    "batch_size": 8,
+    "dataset_name": "planet_kaggle",
+    "epochs": 30,
+    "generator_name": "jpg",
+    "lr_schedule": [
+        [
+            0,
+            0.0001
+        ],
+        [
+            10,
+            1e-05
+        ],
+        [
+            20,
+            1e-06
+        ]
+    ],
+    "model_type": "densenet121",
+    "nb_eval_plot_samples": 100,
+    "optimizer": "adam",
+    "problem_type": "tagging",
+    "run_name": "tagging/7_7_17/jpg_ensemble_0/avg",
+    "seed": 0,
+    "ensemble_cross_val": true,
+    "steps_per_epoch": 2400,
+    "train_ratio": 0.8,
+    "use_pretraining": true,
+    "validation_steps": 480
+}

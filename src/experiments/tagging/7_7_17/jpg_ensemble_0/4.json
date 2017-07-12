@@ -1,0 +1,41 @@
+{
+    "active_input_inds": [
+        0,
+        1,
+        2
+    ],
+    "augment_methods": [
+        "hflip",
+        "vflip",
+        "rotate90"
+    ],
+    "batch_size": 8,
+    "dataset_name": "planet_kaggle",
+    "epochs": 30,
+    "generator_name": "jpg",
+    "lr_schedule": [
+        [
+            0,
+            0.0001
+        ],
+        [
+            10,
+            1e-05
+        ],
+        [
+            20,
+            1e-06
+        ]
+    ],
+    "model_type": "densenet121",
+    "nb_eval_plot_samples": 100,
+    "optimizer": "adam",
+    "problem_type": "tagging",
+    "run_name": "tagging/7_7_17/jpg_ensemble_0/4",
+    "seed": 0,
+    "val_ind": 4,
+    "steps_per_epoch": 2400,
+    "train_ratio": 0.8,
+    "use_pretraining": true,
+    "validation_steps": 480
+}
