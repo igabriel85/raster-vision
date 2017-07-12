@@ -13,7 +13,7 @@ from rastervision.tagging.tasks.train_model import TaggingTrainModel
 from rastervision.tagging.tasks.predict import (
     TRAIN_PROBS, TRAIN_PREDICT, VALIDATION_PROBS, VALIDATION_PREDICT,
     TEST_PROBS, TEST_PREDICT, compute_ensemble_probs, compute_probs,
-    compute_preds, compute_concat_probs)
+    compute_preds, compute_concat_probs, compute_ensemble_preds)
 from rastervision.tagging.tasks.validation_eval import (
     VALIDATION_EVAL, validation_eval)
 from rastervision.tagging.tasks.train_thresholds import (

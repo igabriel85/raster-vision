@@ -155,7 +155,9 @@ def s3_download(run_name, file_name):
     s3_file_path = join(s3_run_path, file_name)
 
     run_path = join(results_path, run_name)
-    call(['aws', 's3', 'cp', s3_file_path, run_path + '/'])
+    cmd = ['aws', 's3', 'cp', s3_file_path, run_path + '/']
+    print(cmd)
+    call(cmd)
 
 
 def download_done(file_names, dataset_path):

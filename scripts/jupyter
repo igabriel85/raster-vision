@@ -19,6 +19,7 @@ Run the jupyter notebook in a raster-vision docker image locally
 if [ "${BASH_SOURCE[0]}" = "${0}" ]
 then
     docker run --rm -it \
+           -e "S3_BUCKET=$S3_BUCKET" \
            -e "AWS_PROFILE=$AWS_PROFILE" \
            -v "$HOME/.aws":/root/.aws \
            -v "$SRC":/opt/src \

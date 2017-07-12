@@ -1,7 +1,9 @@
 from os.path import join
 import json
+from math import ceil
 
 import numpy as np
+from scipy.stats import mode
 
 from rastervision.common.settings import results_path
 
@@ -74,6 +76,25 @@ def compute_ensemble_probs(run_path, options, generator, split):
         y_probs = y_probs[0:options.nb_eval_samples, :]
 
     np.save(probs_path, y_probs)
+
+
+def compute_ensemble_preds(run_path, options, generator, split):
+    preds_path = join(run_path, get_preds_fn(split))
+    y_preds = []
+
+    for run_name in options.aggregate_run_names:
+        run_preds_path = join(
+            results_path, run_name, get_preds_fn(split))
+        y_preds.append(np.expand_dims(np.load(run_preds_path), axis=2))
+
+    y_preds = np.concatenate(y_preds, axis=2)
+    y_preds_sum = np.sum(y_preds, axis=2)
+    y_preds = y_preds_sum >= ceil(y_preds.shape[2] / 2)
+
+    if options.nb_eval_samples is not None:
+        y_preds = y_preds[0:options.nb_eval_samples, :]
+
+    np.save(preds_path, y_preds)
 
 
 def compute_probs(run_path, model, options, generator, split):
