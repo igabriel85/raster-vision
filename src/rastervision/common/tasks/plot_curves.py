@@ -58,12 +58,12 @@ def plot_single_curves(options):
     log = np.genfromtxt(log_path, delimiter=',', skip_header=1)
     epochs = log[:, 0]
     acc = log[:, 1]
-    val_acc = log[:, 3]
+    # val_acc = log[:, 3]
 
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.plot(epochs, acc, '-', label='Training')
-    plt.plot(epochs, val_acc, '--', label='Validation')
+    # plt.plot(epochs, val_acc, '--', label='Validation')
     plt.legend(loc='best')
 
     accuracy_path = join(run_path, 'accuracy.pdf')
