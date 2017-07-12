@@ -17,7 +17,7 @@ from rastervision.tagging.tasks.predict import (
 from rastervision.tagging.tasks.validation_eval import (
     VALIDATION_EVAL, validation_eval)
 from rastervision.tagging.tasks.train_thresholds import (
-    TRAIN_THRESHOLDS, train_thresholds)
+    TRAIN_THRESHOLDS, train_thresholds, compute_ensemble_thresholds)
 
 
 class TaggingRunner(Runner):
@@ -47,7 +47,8 @@ class TaggingRunner(Runner):
             if aggregate_type in [None, AGG_SUMMARY]:
                 plot_curves(self.options)
         elif task == TRAIN_PROBS:
-            if aggregate_type == AGG_ENSEMBLE:
+            if aggregate_type == AGG_ENSEMBLE \
+               and not self.options.ensemble_cross_val:
                 compute_ensemble_probs(
                     self.run_path, self.options, self.generator, TRAIN)
             elif aggregate_type == AGG_CONCAT:
@@ -57,7 +58,8 @@ class TaggingRunner(Runner):
                 compute_probs(self.run_path, self.model, self.options,
                               self.generator, TRAIN)
         elif task == VALIDATION_PROBS:
-            if aggregate_type == AGG_ENSEMBLE:
+            if aggregate_type == AGG_ENSEMBLE \
+               and not self.options.ensemble_cross_val:
                 compute_ensemble_probs(
                     self.run_path, self.options, self.generator, VALIDATION)
             elif aggregate_type == AGG_CONCAT:
@@ -77,15 +79,25 @@ class TaggingRunner(Runner):
                 compute_probs(self.run_path, self.model, self.options,
                               self.generator, TEST)
         elif task == TRAIN_THRESHOLDS:
-            if aggregate_type in [None, AGG_ENSEMBLE, AGG_CONCAT]:
+            if aggregate_type in [None, AGG_CONCAT]:
                 train_thresholds(
                     self.run_path, self.options, self.generator)
+            elif aggregate_type == AGG_ENSEMBLE:
+                compute_ensemble_thresholds(self.run_path, self.options)
         elif task == TRAIN_PREDICT:
-            if aggregate_type in [None, AGG_ENSEMBLE, AGG_CONCAT]:
+            if aggregate_type in [None, AGG_CONCAT]:
+                compute_preds(
+                    self.run_path, self.options, self.generator, TRAIN)
+            if aggregate_type == AGG_ENSEMBLE \
+               and not self.options.ensemble_cross_val:
                 compute_preds(
                     self.run_path, self.options, self.generator, TRAIN)
         elif task == VALIDATION_PREDICT:
             if aggregate_type in [None, AGG_ENSEMBLE, AGG_CONCAT]:
+                compute_preds(self.run_path, self.options,
+                              self.generator, VALIDATION)
+            if aggregate_type == AGG_ENSEMBLE \
+               and not self.options.ensemble_cross_val:
                 compute_preds(self.run_path, self.options,
                               self.generator, VALIDATION)
         elif task == TEST_PREDICT:

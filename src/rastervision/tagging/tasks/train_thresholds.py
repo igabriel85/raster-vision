@@ -3,6 +3,7 @@ from os.path import join
 from sklearn.metrics import fbeta_score
 import numpy as np
 
+from rastervision.common.utils import s3_download
 from rastervision.common.settings import TRAIN
 from rastervision.common.utils import save_json, load_json
 from rastervision.tagging.tasks.utils import compute_prediction
@@ -63,9 +64,20 @@ def optimize_thresholds(y_true, y_probs, tag_store, dataset):
 
 
 def train_thresholds(run_path, options, generator):
-    if options.loss_function == BINARY_CROSSENTROPY:
-        y_true, y_probs = get_model_output(
-            run_path, generator, options.nb_eval_samples)
-        thresholds = optimize_thresholds(
-            y_true, y_probs, generator.tag_store, generator.dataset)
-        save_thresholds(run_path, thresholds)
+    y_true, y_probs = get_model_output(
+        run_path, generator, options.nb_eval_samples)
+    thresholds = optimize_thresholds(
+        y_true, y_probs, generator.tag_store, generator.dataset)
+    save_thresholds(run_path, thresholds)
+
+
+def compute_ensemble_thresholds(run_path, options):
+    thresholds = np.empty((0, 17), int)
+
+    for run_name in options.ensemble_run_names:
+        s3_download(run_name, 'thresholds.json')
+        thresholds_path = join(run_path, 'thresholds.json')
+        model_threshold = np.array(load_json(thresholds_path).values())
+        np.append(thresholds, model_threshold, axis=0)
+
+    return np.means(thresholds, axis=0)

@@ -1,6 +1,7 @@
 from os.path import join, basename, splitext
 import csv
 import glob
+from random import shuffle
 
 import numpy as np
 import matplotlib as mpl
@@ -221,8 +222,9 @@ class PlanetKaggleFileGenerator(FileGenerator):
         self.dev_path = join(self.dataset_path, self.dev_dir)
         self.test_path = join(self.dataset_path, self.test_dir)
 
-        self.dev_file_inds = self.generate_file_inds(self.dev_path)
-        self.test_file_inds = self.generate_file_inds(self.test_path)
+        self.dev_file_inds = self.generate_file_inds(self.dev_path,
+                                                     options.seed)
+        self.test_file_inds = self.generate_file_inds(self.test_path, None)
 
         self.active_tags = options.active_tags
         self.active_tags = options.active_tags \
@@ -249,9 +251,12 @@ class PlanetKaggleFileGenerator(FileGenerator):
         counts_path = join(dataset_path, 'tag_counts.json')
         save_json(tag_store.get_tag_counts(), counts_path)
 
-    def generate_file_inds(self, path):
+    def generate_file_inds(self, path, seed):
         paths = sorted(
             glob.glob(join(path, '*.{}'.format(self.file_extension))))
+
+        if seed is not None:
+            shuffle(paths, lambda: seed)
 
         file_inds = []
         for path in paths:
