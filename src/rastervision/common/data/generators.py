@@ -72,7 +72,7 @@ class FileGenerator(Generator):
 
         if self.train_ratio is not None:
             nb_train_inds = \
-                int(round(self.train_ratio * len(self.dev_file_inds)))
+                int(round(0.99 * len(self.dev_file_inds)))
             self.train_file_inds = self.dev_file_inds[0:nb_train_inds]
             self.validation_file_inds = self.dev_file_inds[nb_train_inds:]
 
