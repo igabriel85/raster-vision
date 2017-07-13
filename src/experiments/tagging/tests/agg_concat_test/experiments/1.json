@@ -1,0 +1,39 @@
+{
+    "active_input_inds": [
+        0,
+        1,
+        2
+    ],
+    "active_tags": [
+        "artisinal_mine",
+        "blooming",
+        "blow_down",
+        "conventional_mine",
+        "selective_logging",
+        "slash_burn"
+    ],
+    "active_tags_prob": 0.75,
+    "augment_methods": [
+        "hflip",
+        "vflip",
+        "rotate",
+        "translate"
+    ],
+    "batch_size": 1,
+    "dataset_name": "planet_kaggle",
+    "epochs": 2,
+    "generator_name": "jpg",
+    "init_lr": 0.001,
+    "model_type": "baseline_resnet",
+    "nb_eval_plot_samples": 3,
+    "nb_eval_samples": 10,
+    "optimizer": "adam",
+    "problem_type": "tagging",
+    "seed": 0,
+    "val_ind": 1,
+    "run_name": "tagging/tests/agg_concat_test/1",
+    "steps_per_epoch": 2,
+    "train_ratio": 0.8,
+    "use_pretraining": true,
+    "validation_steps": 1
+}

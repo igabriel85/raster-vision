@@ -36,6 +36,7 @@ Vagrant.configure("2") do |config|
     end
 
     raster_vision.vm.network "forwarded_port", guest: 8888, host: 8888
+    raster_vision.vm.network "forwarded_port", guest: 8889, host: 8889
 
     raster_vision.vm.provider :virtualbox do |vb|
       vb.memory = 8192

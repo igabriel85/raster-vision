@@ -24,7 +24,7 @@ then
            -v "$SRC":/opt/src \
            -v /opt/data:/opt/data \
            -v /opt/notebooks:/opt/notebooks \
-           -p 8888:8888 \
+           -p 8889:8888 \
            raster-vision-jupyter \
            notebook \
            --ip 0.0.0.0 \
