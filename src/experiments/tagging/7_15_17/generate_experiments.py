@@ -28,20 +28,25 @@ class TestExperimentGenerator(ExperimentGenerator):
             'steps_per_epoch': 2400
         }
 
+        lr_schedules = [
+            [[0, 1e-2], [10, 1e-3], [20, 1e-4]],
+            [[0, 1e-1], [10, 1e-2], [20, 1e-3]]]
         model_types = ['baseline_resnet', 'densenet121']
 
         exps = []
         exp_count = 0
         for model_type in model_types:
-            exp = deepcopy(base_exp)
-            exp['run_name'] = join(exp['run_name'], str(exp_count))
-            exp['model_type'] = model_type
-            if model_type == 'baseline_resnet':
-                exp['batch_size'] = int(exp['batch_size'] * 4)
-                exp['validation_steps'] = int(exp['validation_steps'] / 4)
-                exp['steps_per_epoch'] = int(exp['steps_per_epoch'] / 4)
-            exps.append(exp)
-            exp_count += 1
+            for lr_schedule in lr_schedules:
+                exp = deepcopy(base_exp)
+                exp['run_name'] = join(exp['run_name'], str(exp_count))
+                exp['model_type'] = model_type
+                exp['lr_schedule'] = lr_schedule
+                if model_type == 'baseline_resnet':
+                    exp['batch_size'] = int(exp['batch_size'] * 4)
+                    exp['validation_steps'] = int(exp['validation_steps'] / 4)
+                    exp['steps_per_epoch'] = int(exp['steps_per_epoch'] / 4)
+                exps.append(exp)
+                exp_count += 1
 
         return exps
 
