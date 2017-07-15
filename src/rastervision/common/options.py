@@ -58,6 +58,10 @@ class Options():
                 raise ValueError(
                     '{} are not valid augment_methods'.format(
                         str(invalid_augment_methods)))
+
+        self.momentum = options.get('momentum', None)
+        self.nesterov = options.get('nesterov', False)
+
         # decay options
         decay_set = False
         self.lr_step_decay = options.get('lr_step_decay', 0.0)
