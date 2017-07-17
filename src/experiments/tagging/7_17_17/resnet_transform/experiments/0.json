@@ -1,0 +1,40 @@
+{
+    "active_input_inds": [
+        0,
+        1,
+        2
+    ],
+    "augment_methods": [
+        "hflip",
+        "vflip",
+        "rotate",
+        "zoom",
+        "translate"
+    ],
+    "batch_size": 32,
+    "dataset_name": "planet_kaggle",
+    "epochs": 20,
+    "generator_name": "jpg",
+    "git_commit": "7f79ca",
+    "lr_schedule": [
+        [
+            0,
+            0.01
+        ],
+        [
+            10,
+            0.001
+        ]
+    ],
+    "model_type": "baseline_resnet",
+    "momentum": 0.9,
+    "nb_eval_plot_samples": 100,
+    "nesterov": true,
+    "optimizer": "sgd",
+    "problem_type": "tagging",
+    "run_name": "tagging/7_17_17/resnet_transform/0",
+    "steps_per_epoch": 600,
+    "train_ratio": 0.99,
+    "use_pretraining": true,
+    "validation_steps": 8
+}
