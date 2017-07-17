@@ -59,8 +59,13 @@ class Options():
                     '{} are not valid augment_methods'.format(
                         str(invalid_augment_methods)))
 
-        self.momentum = options.get('momentum', None)
+        # for sgd
+        self.momentum = options.get('momentum', 0)
         self.nesterov = options.get('nesterov', False)
+
+        # for rmsprop
+        self.rho = options.get('rho', 0.9)
+        self.epsilon = options.get('epsilon', 1e-8)
 
         # decay options
         decay_set = False
