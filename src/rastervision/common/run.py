@@ -64,7 +64,7 @@ class Runner():
                              .get_data_generator(self.options)
 
         if self.options.aggregate_type is None:
-            # XXX Just trying this out
+            # XXX for flying blind
             self.model = self.model_factory.get_model(
                 self.run_path, self.options, self.generator, use_best=False)
         else:
