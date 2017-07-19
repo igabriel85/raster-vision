@@ -46,7 +46,7 @@ class TaggingModelFactory(ModelFactory):
             weights = 'imagenet' if options.use_pretraining else None
             model = InceptionV3(include_top=True, weights=weights,
                                 input_shape=input_shape,
-                                classes=len(generator.active_tags),
+                                classes=len(generator.tag_store.active_tags),
                                 activation=activation)
         else:
             raise ValueError('{} is not a valid model_type'.format(model_type))
